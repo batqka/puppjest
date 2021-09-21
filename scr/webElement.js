@@ -7,12 +7,12 @@ class WebElement {
 
     async click() {
         let element = await this.elementFind();
-        element.click();
+        await element.click();
     }
 
     async sendKeys(text) {
         let element = await this.elementFind();
-        element.type(text);
+        await element.type(text);
     }
 
     async elementFind() {
