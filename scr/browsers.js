@@ -11,7 +11,7 @@ async function getBrowser(){
  * Returns browser instance with installed Helium10 chrome extension.
  */
 async function getBrowserWithExtension() {
-    const pathToExtension = 'C:\\Users\\Stillife\\WebstormProjects\\puppjest\\ext\\extension';
+    const pathToExtension = 'C:\\Users\\Stillife\\WebstormProjects\\puppeject\\ext\\extension';
     return await puppeteer.launch({
         headless: false,
         defaultViewport: {
@@ -34,13 +34,11 @@ async function getBrowserWithExtension() {
  * Returns extension id from browser instance with installed Helium10 chrome extension.
  */
 async function getExtensionId(browser){
-    // const extensionName = 'Helium 10';
 
     const targets = await browser.targets();
     const extensionTarget = await targets.find(({ _targetInfo }) => {
         return _targetInfo.type === 'service_worker';
     });
-    console.log(extensionTarget);
     const extensionUrl = extensionTarget._targetInfo.url || '';
     const [,, extensionID] = extensionUrl.split('/');
     return extensionID;

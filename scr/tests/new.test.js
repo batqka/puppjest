@@ -6,7 +6,6 @@ const {getExtensionId} = require("../browsers");
 
 describe('login test', () => {
     test('setp 1',async  () => {
-        jest.setTimeout(60000);
         let browser = await browsers.getBrowserWithExtension();
 
         await sleep(1500);
@@ -15,12 +14,13 @@ describe('login test', () => {
         await page.browserPage.goto('https://members.helium10.com/user/signin');
         await page.loginField.sendKeys('batqka454545@gmail.com');
         await page.passField.sendKeys('153258');
-        await page.loginButton.click();
+        // await page.loginButton.click();
+        let data = await page.loginButton.getValue();
         await sleep(3000);
         await page.browserPage.goto('chrome-extension://'+ await getExtensionId(browser) + '/popup.html');
         await sleep(3000);
         await page.browserPage.goto('https://www.amazon.com/s?k=cpu&ref=nb_sb_noss_2');
-    });
+    }, 60000);
 });
 
 
