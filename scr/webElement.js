@@ -36,13 +36,23 @@ class WebElement {
         }
     }
 
-    async getValue(){
+    async getChild(){
         let count = 0;
         while (true) {
             try {
-                let element = await this.elementFind();
-                let lol = await element.innerText;
-                return lol;
+                return  await this.browserPage.$eval(this.selector, n => n.innerHTML);
+            } catch (err) {
+                console.log('Failed in get value try');
+                if (++count >= this.attempts) throw err;
+            }
+        }
+    }
+
+    async getText(){
+        let count = 0;
+        while (true) {
+            try {
+                return await this.browserPage.$eval(this.selector, n => n.textContent);
             } catch (err) {
                 console.log('Failed in get value try');
                 if (++count >= this.attempts) throw err;

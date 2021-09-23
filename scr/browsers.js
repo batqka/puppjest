@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+const {dirname} = require('path');
+const getExtensionPath = require('../ext/extensionPath');
 
 /**
  * Returns clear browser instance.
@@ -11,7 +13,7 @@ async function getBrowser(){
  * Returns browser instance with installed Helium10 chrome extension.
  */
 async function getBrowserWithExtension() {
-    const pathToExtension = 'C:\\Users\\Stillife\\WebstormProjects\\puppeject\\ext\\extension';
+    const pathToExtension = getExtensionPath();
     return await puppeteer.launch({
         headless: false,
         defaultViewport: {
