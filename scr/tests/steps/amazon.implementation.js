@@ -28,6 +28,13 @@ module.exports = ({ given, and, when, then }) => {
   });
 
   then("I see BSR containers near products", async () => {
-    expect(await page.bsrContainer.isExist()).toBe(true);
+    let bsrContainers = await page.bsrContainer.findElements();
+    let quantity = bsrContainers.length;
+    expect(quantity).toBeGreaterThan(1);
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    let bsrContainersAsins = await page.bsrContainerAsin.findElements();
+    expect(bsrContainersAsins.length).toEqual(quantity);
   });
 };

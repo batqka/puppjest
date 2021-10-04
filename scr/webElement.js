@@ -5,13 +5,14 @@ class WebElement {
     this.browserPage = browserPage;
     this.selector = selector;
     this.attempts = attempts;
+    this.isSelectorXpath = this.isItXpath();
   }
 
   async click(options) {
     let count = 0;
     while (true) {
       try {
-        let element = await this.elementFind();
+        let element = await this.findElement();
         await element.click(options);
         break;
       } catch (err) {
@@ -25,7 +26,7 @@ class WebElement {
     let count = 0;
     while (true) {
       try {
-        let element = await this.elementFind();
+        let element = await this.findElement();
         await element.type(text);
         break;
       } catch (err) {
@@ -62,12 +63,36 @@ class WebElement {
     }
   }
 
-  async elementFind() {
-    return await this.browserPage.$(this.selector);
+  async findElement() {
+    if (this.isSelectorXpath) {
+      return await this.browserPage.$x(this.selector)[1];
+    } else {
+      return await this.browserPage.$(this.selector);
+    }
+  }
+
+  async findElements() {
+    if (this.isSelectorXpath) {
+      return await this.browserPage.$x(this.selector);
+    } else {
+      return await this.browserPage.$$(this.selector);
+    }
   }
 
   async isExist() {
-    return (await this.elementFind()) != null;
+    let count = 0;
+    while (true) {
+      try {
+        return (await this.findElement()) != null;
+      } catch (err) {
+        console.log("Failed in get value try");
+        if (++count >= this.attempts) throw err;
+      }
+    }
+  }
+
+  isItXpath() {
+    return this.selector.startsWith("//");
   }
 }
 
