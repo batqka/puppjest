@@ -65,16 +65,20 @@ class WebElement {
 
   async findElement() {
     if (this.isSelectorXpath) {
+      await this.browserPage.waitForXPath(this.selector);
       return await this.browserPage.$x(this.selector)[1];
     } else {
+      await this.browserPage.waitForSelector(this.selector);
       return await this.browserPage.$(this.selector);
     }
   }
 
   async findElements() {
     if (this.isSelectorXpath) {
+      await this.browserPage.waitForXPath(this.selector);
       return await this.browserPage.$x(this.selector);
     } else {
+      await this.browserPage.waitForSelector(this.selector);
       return await this.browserPage.$$(this.selector);
     }
   }
@@ -93,6 +97,10 @@ class WebElement {
 
   isItXpath() {
     return this.selector.startsWith("//");
+  }
+
+  async waitForShown() {
+    return await this.findElements();
   }
 }
 

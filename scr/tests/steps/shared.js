@@ -7,9 +7,9 @@ export const givenAuthorizedUser = async (browser, page) => {
   await page.loginField.sendKeys("batqka454545@gmail.com");
   await page.passField.sendKeys("153258");
   await page.loginButton.click();
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  await page.welcomeLabel.isExist();
   await page.browserPage.goto(
     "chrome-extension://" + (await getExtensionId(browser)) + "/popup.html"
   );
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await page.extensionLoggedInMark.isExist();
 };

@@ -2,7 +2,7 @@ const browsers = require("../../browsers");
 const SearchPage = require("../../pages/amazon/searchPage");
 const { givenAuthorizedUser } = require("./shared");
 
-module.exports = ({ given, and, when, then }) => {
+module.exports = ({ given, when, then }) => {
   jest.setTimeout(60000);
   let page;
   let browser;
@@ -18,12 +18,12 @@ module.exports = ({ given, and, when, then }) => {
 
   given("authorized user", async () => {
     await givenAuthorizedUser(browser, page);
+    page = await new SearchPage(await browser.newPage());
   });
 
   when("I open amazon search page", async () => {
-    page = await new SearchPage(await browser.newPage());
     await page.browserPage.goto(
-      "https://www.amazon.com/s?k=cpu&ref=nb_sb_noss_2"
+      "https://www.amazon.com/s?k=shirt&ref=nb_sb_noss_1"
     );
   });
 
@@ -31,8 +31,6 @@ module.exports = ({ given, and, when, then }) => {
     let bsrContainers = await page.bsrContainer.findElements();
     let quantity = bsrContainers.length;
     expect(quantity).toBeGreaterThan(1);
-
-    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     let bsrContainersAsins = await page.bsrContainerAsin.findElements();
     expect(bsrContainersAsins.length).toEqual(quantity);

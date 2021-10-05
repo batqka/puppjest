@@ -1,4 +1,4 @@
-Feature: Logging in
+Feature: Chrome Extension smoke
 
 #  Scenario: Testing valid logging in
 #    Given Open members sign in page
@@ -7,7 +7,7 @@ Feature: Logging in
 #    When I press login button
 #    Then I see members dashboard page
 
-  @amazon.com
+  @amazon_com
   Scenario: BSR containers are shown on the amazon.com search page
     Given authorized user
     When I open amazon search page
