@@ -1,5 +1,6 @@
-const { loadFeature } = require("jest-cucumber");
-const { injectSteps } = require("../steps");
+import {injectSteps} from "../steps"
+import {loadFeature} from "jest-cucumber";
+
 
 injectSteps(
   loadFeature("./signIn.feature", {

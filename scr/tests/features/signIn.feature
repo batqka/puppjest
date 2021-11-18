@@ -12,3 +12,8 @@ Feature: Chrome Extension smoke
     Given authorized user
     When I open amazon search page
     Then I see BSR containers near products
+
+
+#  Scenario: Some Context tests
+#    Given authorized user
+#    Then check it

@@ -64,22 +64,34 @@ class WebElement {
   }
 
   async findElement() {
-    if (this.isSelectorXpath) {
-      await this.browserPage.waitForXPath(this.selector);
-      return await this.browserPage.$x(this.selector)[1];
-    } else {
-      await this.browserPage.waitForSelector(this.selector);
-      return await this.browserPage.$(this.selector);
-    }
+    try {
+      if (this.isSelectorXpath) {
+        await this.browserPage.waitForXPath(this.selector);
+        return await this.browserPage.$x(this.selector);
+      } else {
+        await this.browserPage.waitForSelector(this.selector);
+        return await this.browserPage.$(this.selector);
+      }
+    } catch (err) {
+    console.log("Failed in get value try");
+    throw err;
+  }
   }
 
   async findElements() {
-    if (this.isSelectorXpath) {
-      await this.browserPage.waitForXPath(this.selector);
-      return await this.browserPage.$x(this.selector);
-    } else {
-      await this.browserPage.waitForSelector(this.selector);
-      return await this.browserPage.$$(this.selector);
+    try {
+      if (this.isSelectorXpath) {
+        await this.browserPage.waitForXPath(this.selector);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        return await this.browserPage.$x(this.selector);
+      } else {
+        await this.browserPage.waitForSelector(this.selector);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        return await this.browserPage.$$(this.selector);
+      }
+    } catch (err) {
+      console.log("Failed in get value try");
+      throw err;
     }
   }
 

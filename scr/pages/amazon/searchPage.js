@@ -5,14 +5,17 @@ class SearchPage {
   constructor(browserPage) {
     this.browserPage = browserPage;
     this.bsrContainer = new webElement(
-      this.browserPage,
+        browserPage,
       locators.BSR_CONTAINER
     );
     this.bsrContainerAsin = new webElement(
-      this.browserPage,
+        browserPage,
       locators.BSR_CONTAINER_ASIN
     );
-  }
-}
+    this.extensionLoggedInMark = new webElement(
+        browserPage,
+        locators.EXTENSION_LOGGED_IN_MARK
+    );
+  }}
 
 module.exports = SearchPage;
